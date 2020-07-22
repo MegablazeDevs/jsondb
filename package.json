@@ -2,6 +2,9 @@
   "name": "jsondb",
   "version": "1.0.0",
   "description": "A quick and dirty way to use json as a db. All fs calls are handled by jsondb, simplifying usage.",
+  "repository": {
+    "url": "https://github.com/megablazedevs/jsondb"
+  },
   "main": "./dist/main.js",
   "scripts": {
     "compile": "tsc -p ./",
