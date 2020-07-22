@@ -5,10 +5,19 @@ class Database {
     constructor(folder, name) {
         this.filePath = `${folder}/${name}.json`;
     }
-    write(data) {
+    write(key, data) {
+        try {
+            const prelimData = JSON.parse(fs.readFileSync(this.filePath, "utf8"));
+            prelimData[key] = data;
+            fs.writeFileSync(this.filePath, JSON.stringify(prelimData, null, 2));
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    overwrite(data) {
         try {
             fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2));
-            console.log("JSON was written to file.");
         }
         catch (error) {
             console.error(error);
@@ -17,20 +26,23 @@ class Database {
     read(key) {
         let data;
         try {
-            data = JSON.parse(fs.readFileSync(this.filePath, "utf8"))[key];
+            if (key) {
+                data = JSON.parse(fs.readFileSync(this.filePath, "utf8"))[key];
+            }
+            else {
+                data = JSON.parse(fs.readFileSync(this.filePath, "utf8"));
+            }
         }
         catch (error) {
             if (error instanceof TypeError) {
                 throw `Key "${key}" does not exist.`;
             }
             else {
-                data = error;
+                throw error;
             }
         }
         return data;
     }
 }
-const db = new Database(__dirname, "testfile");
-db.write(JSON.parse('{"hey": "this is a test"}'));
-console.log(`Key content: ${db.read("what?")}`);
+exports.Database = Database;
 //# sourceMappingURL=main.js.map

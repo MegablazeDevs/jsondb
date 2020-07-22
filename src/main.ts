@@ -1,35 +1,41 @@
 import * as fs from "fs";
 
-class Database {
+export class Database {
   filePath: string;
   constructor(folder: fs.PathLike, name: string) {
     this.filePath = `${folder}/${name}.json`;
   }
-  write(data: JSON): void {
+  write(key: string, data: JSON | string): void {
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2));
-      console.log("JSON was written to file.");
+      const prelimData = JSON.parse(fs.readFileSync(this.filePath, "utf8"));
+      prelimData[key] = data;
+      fs.writeFileSync(this.filePath, JSON.stringify(prelimData, null, 2));
     } catch (error) {
       console.error(error);
     }
   }
-  read(key: string): string | Error {
+  overwrite(data: JSON | object): void {
+    try {
+      fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  read(key?: string): string | object {
     let data;
     try {
-      data = JSON.parse(fs.readFileSync(this.filePath, "utf8"))[key];
+      if (key) {
+        data = JSON.parse(fs.readFileSync(this.filePath, "utf8"))[key];
+      } else {
+        data = JSON.parse(fs.readFileSync(this.filePath, "utf8"));
+      }
     } catch (error) {
       if (error instanceof TypeError) {
         throw `Key "${key}" does not exist.`;
       } else {
-        data = error;
+        throw error;
       }
     }
     return data;
   }
 }
-
-const db = new Database(__dirname, "testfile");
-
-db.write(JSON.parse('{"hey": "this is a test"}'));
-
-console.log(`Key content: ${db.read("hey")}`);

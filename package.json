@@ -2,13 +2,13 @@
   "name": "jsondb",
   "version": "1.0.0",
   "description": "A quick and dirty way to use json as a db. All fs calls are handled by jsondb, simplifying usage.",
-  "main": "./out/main.js",
+  "main": "./dist/main.js",
   "scripts": {
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./dist/test/index.test.js"
   },
   "author": "MegaBlazeDevs",
   "license": "AGPLv3",
