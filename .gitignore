@@ -1,8 +1,5 @@
 node_modules
 dist/test/testfile.json
-src
 .eslintignore
 tsconfig.json
 .eslintrc.json
-**/*.map
-**/*.ts
