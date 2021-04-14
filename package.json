@@ -14,7 +14,7 @@
     "test": "node ./dist/test/index.test.js"
   },
   "author": "MegaBlazeDevs",
-  "license": "AGPLv3",
+  "license": "AGPLV3",
   "devDependencies": {
     "@types/node": "^13.11.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
