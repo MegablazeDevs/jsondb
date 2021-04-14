@@ -13,7 +13,7 @@
     "pretest": "npm run compile && npm run lint",
     "test": "node ./dist/test/index.test.js"
   },
-  "author": "MegaBlazeDevs",
+  "author": "FlareonTheProgrammer",
   "license": "AGPLV3",
   "devDependencies": {
     "@types/node": "^13.11.0",
